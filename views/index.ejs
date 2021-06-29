@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+ <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+
+
+
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  </head>
+  <body>
+<section class="header">
+     <h1> {404 DOCS}</h1>
+    <p class="subtitle">
+    Together We Learn</p>
+</section>
+
+<!-- Add login UI here -->
+<div class="topnav" id="myTopnav"> 
+          <% if (user) { %>
+          <button class="trigger"> <a href="/logout">Log Out</a>
+          </button>          
+         
+          <% } else { %>
+            <button class = "trigger">
+            <a href="/auth/google">Login with Google</a></button>
+        <% } %>
+            </div>
+ <!--Add Post EJS  -->
+   
+<form action="/user/post" method="POST">
+<input type="text" name="text">
+    <button type="submit" class="trigger">+ Add Post</button >
+</form>
+<!-- Adds Google Avatar -->
+<span class="card-title">
+<%if (user){ %>
+     <% if (user.avatar) { %>
+      <img src="<%= user.avatar %>" alt="" class="circle responsive-img">&nbsp;&nbsp;
+    <% } else { %>
+  <i>perm_identity</i>
+<% } %>
+<section class="main">
+ <h2 class= "posts">Your 404 DOC Posts</h2>
+ <!-- delete Posts from template -->
+ </div class ="background">
+ <div class= "transbox">
+<ul class= "text" >
+<% for( let post of user.posts){ %>
+    <li> <%= post.text %></li>
+      <li> <%= post.createdAt %></li>
+</ul>
+        <form action ="/user/posts/<%= post._id %>?_method=DELETE" method="POST" class ="del-btn">
+      <button  button type="submit" class = "trigger">-Delete Post</button>
+    </form>
+    <!-- edit posts from template  -->
+      <form class = "editform"action ="/user/posts/<%= post._id  %>?_method=PUT" method="POST" > <div class="hidden"><input type="text" name="text" class="posts" ></div><button class="trigger" type="submit">Save Changes</button>
+  </form>
+ <button class ="trigger" >Edit</button>
+    
+<%}%>
+<span class="user-name"><%= user.name %></span>
+
+ <% } %> 
+</div>
+</div>     
+<script>
+let editBtnEls = document.querySelectorAll(".trigger")
+let formELs = document.querySelectorAll(".editform");
+//  add event listener
+for(let b of  editBtnEls){
+  b.addEventListener("click", displayForms)
+}
+// when clikced on any triggers all forms show up 
+function displayForms(){
+     for (let f of formELs ){
+        f.classList.add("show")
+      }
+    }
+</script>
+</section>
+  </body>
+
+</html>
