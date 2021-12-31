@@ -63,7 +63,7 @@ async function editPost(req, res, next) {
      res.redirect('/')
   }); 
 
-  };
+  }
 
 
 
